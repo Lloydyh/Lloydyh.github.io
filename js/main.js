@@ -61,7 +61,6 @@ async function connect() {
   const server = await bluetoothDevice.gatt.connect();
   const service = await server.getPrimaryService(primaryServiceUuid);
 
-  sendCharUuid
   console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
   connectButton.style.display = 'none';
