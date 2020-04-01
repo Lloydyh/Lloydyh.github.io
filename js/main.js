@@ -40,7 +40,7 @@ connectButton.onclick = async () => {
     options.filters.push({namePrefix: filterNamePrefix});
   }*/
 
-  options.filters.push({services: [primaryServiceUuid]});
+  options.filters.push({name: "BramwellBrown"});
 
   bluetoothDevice = null;
   try {
