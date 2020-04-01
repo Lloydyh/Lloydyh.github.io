@@ -58,8 +58,8 @@ async function connect() {
   //await bluetoothDevice.gatt.connect();
 
   const server = await bluetoothDevice.gatt.connect();
-  const service = await server.getPrimaryService(primaryServiceUuid);
-  sendCharacteristic = await service.getCharacteristic(sendCharUuid);
+  //const service = await server.getPrimaryService(primaryServiceUuid);
+  //sendCharacteristic = await service.getCharacteristic(sendCharUuid);
 
   console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
