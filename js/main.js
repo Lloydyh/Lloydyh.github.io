@@ -47,6 +47,7 @@ connectButton.onclick = async () => {
     console.log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice(options);
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+    sendCharacteristic = await service.getCharacteristic(sendCharUuid);
     connect();
   } catch(error) {
     console.log('Argh! ' + error);
@@ -55,11 +56,20 @@ connectButton.onclick = async () => {
 
 async function connect() {
   console.log('Connecting to Bluetooth Device...');
-  await bluetoothDevice.gatt.connect();
+  //await bluetoothDevice.gatt.connect();
+
+  const server = await bluetoothDevice.gatt.connect();
+  const service = await server.getPrimaryService(primaryServiceUuid);
+
+  sendCharUuid
   console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
   connectButton.style.display = 'none';
   disconnectButton.style.display = 'initial';
+}
+
+disconnectButton.onclick = async () => {
+  onDisconnectButtonClick();
 }
 
 function onDisconnectButtonClick() {
@@ -69,6 +79,9 @@ function onDisconnectButtonClick() {
   console.log('Disconnecting from Bluetooth Device...');
   if (bluetoothDevice.gatt.connected) {
     bluetoothDevice.gatt.disconnect();
+    connected.style.display = 'none';
+    connectButton.style.display = 'initial';
+    disconnectButton.style.display = 'none';
   } else {
     console.log('> Bluetooth Device is already disconnected');
   }
@@ -94,6 +107,10 @@ function onReconnectButtonClick() {
   }
 }
 
+sendDataButton.onclick = async () => {
+  const data = new Uint8Array("Hello");
+  sendCharacteristic.writeValue(data);
+};
 
 /*
 connectButton.onclick = async () => {
