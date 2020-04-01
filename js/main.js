@@ -46,8 +46,8 @@ connectButton.onclick = async () => {
   bluetoothDevice = null;
   try {
     console.log('Requesting Bluetooth Device...');
-    bluetoothDevice = await navigator.bluetooth.requestDevice(options);
-    bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
+    //bluetoothDevice = await navigator.bluetooth.requestDevice(options);
+    //bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
     connect();
   } catch(error) {
     console.log('Argh! ' + error);
