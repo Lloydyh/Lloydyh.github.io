@@ -47,7 +47,6 @@ connectButton.onclick = async () => {
     console.log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice(options);
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
-    sendCharacteristic = await service.getCharacteristic(sendCharUuid);
     connect();
   } catch(error) {
     console.log('Argh! ' + error);
@@ -60,6 +59,7 @@ async function connect() {
 
   const server = await bluetoothDevice.gatt.connect();
   const service = await server.getPrimaryService(primaryServiceUuid);
+  sendCharacteristic = await service.getCharacteristic(sendCharUuid);
 
   console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
