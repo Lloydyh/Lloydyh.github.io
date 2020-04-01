@@ -59,8 +59,8 @@ async function connect() {
   //await bluetoothDevice.gatt.connect();
 
   const server = await bluetoothDevice.gatt.connect();
-  //const service = await server.getPrimaryService(primaryServiceUuid);
-  //sendCharacteristic = await service.getCharacteristic(sendCharUuid);
+  const service = await server.getPrimaryService(primaryServiceUuid);
+  sendCharacteristic = await service.getCharacteristic(sendCharUuid);
 
   console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
@@ -68,7 +68,6 @@ async function connect() {
   disconnectButton.style.display = 'initial';
 }
 
-/*
 disconnectButton.onclick = async () => {
   onDisconnectButtonClick();
 }
@@ -87,7 +86,6 @@ function onDisconnectButtonClick() {
     console.log('> Bluetooth Device is already disconnected');
   }
 }
-*/
 
 function onDisconnected(event) {
   // Object event.target is Bluetooth Device getting disconnected.
@@ -108,12 +106,12 @@ function onReconnectButtonClick() {
     console.log('Argh! ' + error);
   }
 }
-
+*/
 sendDataButton.onclick = async () => {
   const data = new Uint8Array("Hello");
   sendCharacteristic.writeValue(data);
 };
-*/
+
 /*
 connectButton.onclick = async () => {
   console.log("connected");
