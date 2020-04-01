@@ -87,12 +87,13 @@ function onDisconnectButtonClick() {
     console.log('> Bluetooth Device is already disconnected');
   }
 }
+*/
 
 function onDisconnected(event) {
   // Object event.target is Bluetooth Device getting disconnected.
   log('> Bluetooth Device disconnected');
 }
-
+/*
 function onReconnectButtonClick() {
   if (!bluetoothDevice) {
     return;
