@@ -67,6 +67,7 @@ async function connect() {
   disconnectButton.style.display = 'initial';
 }
 
+/*
 disconnectButton.onclick = async () => {
   onDisconnectButtonClick();
 }
@@ -110,7 +111,7 @@ sendDataButton.onclick = async () => {
   const data = new Uint8Array("Hello");
   sendCharacteristic.writeValue(data);
 };
-
+*/
 /*
 connectButton.onclick = async () => {
   console.log("connected");
