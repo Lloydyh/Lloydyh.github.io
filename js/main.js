@@ -58,7 +58,7 @@ async function connect() {
   console.log('Connecting to Bluetooth Device...');
   //await bluetoothDevice.gatt.connect();
 
-  await bluetoothDevice.gatt.connect();
+  //await bluetoothDevice.gatt.connect();
   //const service = await server.getPrimaryService(primaryServiceUuid);
   //sendCharacteristic = await service.getCharacteristic(sendCharUuid);
 
