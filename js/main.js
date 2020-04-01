@@ -44,19 +44,19 @@ connectButton.onclick = async () => {
 
   bluetoothDevice = null;
   try {
-    log('Requesting Bluetooth Device...');
+    console.log('Requesting Bluetooth Device...');
     bluetoothDevice = await navigator.bluetooth.requestDevice(options);
     bluetoothDevice.addEventListener('gattserverdisconnected', onDisconnected);
     connect();
   } catch(error) {
-    log('Argh! ' + error);
+    console.log('Argh! ' + error);
   }
-}
+};
 
 async function connect() {
-  log('Connecting to Bluetooth Device...');
+  console.log('Connecting to Bluetooth Device...');
   await bluetoothDevice.gatt.connect();
-  log('> Bluetooth Device connected');
+  console.log('> Bluetooth Device connected');
   connected.style.display = 'block';
   connectButton.style.display = 'none';
   disconnectButton.style.display = 'initial';
@@ -66,11 +66,11 @@ function onDisconnectButtonClick() {
   if (!bluetoothDevice) {
     return;
   }
-  log('Disconnecting from Bluetooth Device...');
+  console.log('Disconnecting from Bluetooth Device...');
   if (bluetoothDevice.gatt.connected) {
     bluetoothDevice.gatt.disconnect();
   } else {
-    log('> Bluetooth Device is already disconnected');
+    console.log('> Bluetooth Device is already disconnected');
   }
 }
 
@@ -84,13 +84,13 @@ function onReconnectButtonClick() {
     return;
   }
   if (bluetoothDevice.gatt.connected) {
-    log('> Bluetooth Device is already connected');
+    console.log('> Bluetooth Device is already connected');
     return;
   }
   try {
     connect();
   } catch(error) {
-    log('Argh! ' + error);
+    console.log('Argh! ' + error);
   }
 }
 
