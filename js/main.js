@@ -21,7 +21,7 @@ window.onload = () => {
 connectButton.onclick = async () => {
   navigator.bluetooth.requestDevice({ filters: [{ name: "BramwellBrown" }] })
   .then(device => device.gatt.connect())
-  .then(server => server.getPrimaryService())
+  .then(server => server.getPrimaryServices())
   .then(services => {
     //document.getElementById("content").innerHTML = "whatever";
     console.log('Energy expended has been reset.');
