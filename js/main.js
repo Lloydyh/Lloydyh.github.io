@@ -18,29 +18,33 @@ window.onload = () => {
   }
 }
 
+connectButton.onclick = async () => {
+  navigator.bluetooth.requestDevice({ filters: [{ name: "BramwellBrown" }] })
+  .then(device => device.gatt.connect())
+  .then(
+    server => server.getPrimaryService(primaryServiceUuid)
+  ).then(
+    //service => service.getCharacteristic('heart_rate_control_point')
+    connected.style.display = 'block';
+    connectButton.style.display = 'none';
+    disconnectButton.style.display = 'initial';
+  ).then(characteristic => {
+    // Writing 1 is the signal to reset energy expended.
+    var resetEnergyExpended = Uint8Array.of(1);
+    return characteristic.writeValue(resetEnergyExpended);
+  })
+  .then(_ => {
+    console.log('Energy expended has been reset.');
+  })
+  .catch(error => { console.log(error); });
+}
+
+
+/*
 var bluetoothDevice;
 
 connectButton.onclick = async () => {
   let options = {filters: []};
-
-  /*
-  let filterService = document.querySelector('#service').value;
-  if (filterService.startsWith('0x')) {
-    filterService = parseInt(filterService);
-  }
-  if (filterService) {
-    options.filters.push({services: [filterService]});
-  }
-
-  let filterName = document.querySelector('#name').value;
-  if (filterName) {
-    options.filters.push({name: filterName});
-  }
-
-  let filterNamePrefix = document.querySelector('#namePrefix').value;
-  if (filterNamePrefix) {
-    options.filters.push({namePrefix: filterNamePrefix});
-  }*/
 
   options.filters.push({name: "BramwellBrown"});
 
@@ -54,7 +58,8 @@ connectButton.onclick = async () => {
     console.log('Argh! ' + error);
   }
 };
-
+*/
+/*
 async function connect() {
   console.log('Connecting to Bluetooth Device...');
   //await bluetoothDevice.gatt.connect();
@@ -92,6 +97,7 @@ function onDisconnected(event) {
   // Object event.target is Bluetooth Device getting disconnected.
   log('> Bluetooth Device disconnected');
 }
+*/
 /*
 function onReconnectButtonClick() {
   if (!bluetoothDevice) {
@@ -107,13 +113,13 @@ function onReconnectButtonClick() {
     console.log('Argh! ' + error);
   }
 }
-*/
+
 sendDataButton.onclick = async () => {
   const data = new Uint8Array("Hello");
   sendCharacteristic.writeValue(data);
 };
 
-/*
+
 connectButton.onclick = async () => {
   console.log("connected");
   device = await navigator.bluetooth
