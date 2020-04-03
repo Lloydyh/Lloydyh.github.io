@@ -19,7 +19,14 @@ window.onload = () => {
 }
 
 connectButton.onclick = async () => {
-  navigator.bluetooth.requestDevice({ filters: [{ name: "BramwellBrown" }] })
+  navigator.bluetooth.requestDevice(
+    {
+      filters: [
+        { name: "BramwellBrown" },
+        { services: [primaryServiceUuid] }
+      ]
+    }
+  )
   .then(device => device.gatt.connect())
   .then(server => server.getPrimaryServices())
   .then(services => {
