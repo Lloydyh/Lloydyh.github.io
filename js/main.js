@@ -32,11 +32,13 @@ connectButton.onclick = async () => {
   .then(service => service.getCharacteristic(sendCharUuid))
   .then(characteristic => {
     // Writing 1 is the signal to reset energy expended.
-    var resetEnergyExpended = new Uint8Array("Hello");
-    return characteristic.writeValue(resetEnergyExpended);
+    var wifidata = new Uint8Array([
+    0x56, red, green, blue, 0x00, 0xf0, 0xaa
+  ]);
+    return characteristic.writeValue(wifidata);
   })
   .then(_ => {
-    console.log('Energy expended has been reset.');
+    console.log('data sent.');
     connected.style.display = 'block';
     connectButton.style.display = 'none';
     disconnectButton.style.display = 'initial';
