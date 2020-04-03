@@ -1,5 +1,6 @@
 const connectButton = document.getElementById('connectButton');
 const disconnectButton = document.getElementById('disconnectButton');
+const sendDataButton = document.getElementById('sendDataButton');
 const connected = document.getElementById('connected');
 
 let device, sendCharacteristic, receiveCharacteristic;
