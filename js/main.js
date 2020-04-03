@@ -32,10 +32,9 @@ connectButton.onclick = async () => {
   .then(service => service.getCharacteristic(sendCharUuid))
   .then(characteristic => {
     // Writing 1 is the signal to reset energy expended.
-    var wifidata = new Uint8Array([
-    0x56, 0x00, 0xf0, 0xaa
-  ]);
-    return characteristic.writeValue(wifidata);
+    let encoder = new TextEncoder('utf-8');
+    let sendMsg = encoder.encode("hello");
+    return characteristic.writeValue(sendMsg);
   })
   .then(_ => {
     console.log('data sent.');
