@@ -21,24 +21,30 @@ window.onload = () => {
 connectButton.onclick = async () => {
   navigator.bluetooth.requestDevice({ filters: [{ name: "BramwellBrown" }] })
   .then(device => device.gatt.connect())
-  .then(
-    server => server.getPrimaryService(primaryServiceUuid)
-  ).then(
-    //service => service.getCharacteristic('heart_rate_control_point')
+  .then(_ => {
+    console.log('Energy expended has been reset.');
     connected.style.display = 'block';
     connectButton.style.display = 'none';
     disconnectButton.style.display = 'initial';
-  ).then(characteristic => {
-    // Writing 1 is the signal to reset energy expended.
-    var resetEnergyExpended = Uint8Array.of(1);
-    return characteristic.writeValue(resetEnergyExpended);
-  })
-  .then(_ => {
-    console.log('Energy expended has been reset.');
   })
   .catch(error => { console.log(error); });
 }
 
+/*
+
+.then(
+  server => server.getPrimaryService(primaryServiceUuid)
+).then(
+  //service => service.getCharacteristic('heart_rate_control_point')
+  connected.style.display = 'block';
+  connectButton.style.display = 'none';
+  disconnectButton.style.display = 'initial';
+).then(characteristic => {
+  // Writing 1 is the signal to reset energy expended.
+  var resetEnergyExpended = Uint8Array.of(1);
+  return characteristic.writeValue(resetEnergyExpended);
+})
+*/
 
 /*
 var bluetoothDevice;
