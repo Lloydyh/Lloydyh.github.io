@@ -29,7 +29,7 @@ connectButton.onclick = async () => {
   )
   .then(device => device.gatt.connect())
   .then(server => server.getPrimaryService(primaryServiceUuid))
-  .then(service => service.getCharacteristic(sendCharacteristic))
+  .then(service => service.getCharacteristic(sendCharUuid))
   .then(characteristic => {
     // Writing 1 is the signal to reset energy expended.
     var resetEnergyExpended = new Uint8Array("Hello");
