@@ -33,7 +33,7 @@ connectButton.onclick = async () => {
   .then(characteristic => {
     // Writing 1 is the signal to reset energy expended.
     var wifidata = new Uint8Array([
-    0x56, red, green, blue, 0x00, 0xf0, 0xaa
+    0x56, 0x00, 0xf0, 0xaa
   ]);
     return characteristic.writeValue(wifidata);
   })
