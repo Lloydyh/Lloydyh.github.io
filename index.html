@@ -16,16 +16,29 @@
   <meta name="msapplication-TileColor" content="#FFFFFF">
 <body class="fullscreen">
   <div class="container">
-    <h1 class="title">Bramwell Brown</h1>
-    <input class="button" type="button" id="connectButton" value="Connect to clock 17" />
+    <!--<h1 class="title">Bramwell Brown</h1>-->
+    <div><img src="images/bb_logo.png"/></div>
+    <input class="button" type="button" id="connectButton" value="Connect to clock 18" />
     <input class="button" type="button" id="disconnectButton" value="Disconnect" />
 
     <hr/>
     <br/>
     <br/>
     <div id="connected">
-        <input class="button" type="button" id="sendDataButton" value="Send Data" />
-        <br/><hr/>
+      <p>Please enter your wifi SSID number and password, these can normally be found on your router.</p>
+      <form onsubmit="sendWifiDetails()">
+        <label for="ssid">SSID:</label><br>
+        <input type="text" id="ssid" name="ssid"><br>
+        <br/>
+        <label for="pwd">Password:</label><br>
+        <input type="text" id="pwd" name="pwd"><br>
+        <br/>
+      </form>
+      <input class="button" type="button" id="sendButton" value="Submit Details" />
+      <br/><hr/>
+    </div>
+    <div id="error-msg">
+      <p></p>
     </div>
   </div>
   <script src="js/main.js"></script>
