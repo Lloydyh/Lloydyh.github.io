@@ -19,6 +19,7 @@ window.onload = () => {
 }
 
 connectButton.onclick = async () => {
+  document.getElementById("error-msg").innerHTML = "";
   navigator.bluetooth.requestDevice(
     {
       filters: [
@@ -34,7 +35,6 @@ connectButton.onclick = async () => {
   .then(server => server.getPrimaryService(primaryServiceUuid))
   .then(service => service.getCharacteristic(sendCharUuid))
   .then(characteristic => {
-    // Writing 1 is the signal to reset energy expended.
     bDevice = characteristic;
     console.log('Connected');
     connected.style.display = 'block';
@@ -44,7 +44,7 @@ connectButton.onclick = async () => {
   .catch(
     error => {
       console.log('No clocks found - ERROR' + error);
-      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again, thank you.";
+      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
     }
   );
 }
@@ -66,6 +66,10 @@ disconnectButton.onclick = async () => {
 
 function onDisconnected(event) {
   let device = event.target;
+
+  connected.style.display = 'none';
+  connectButton.style.display = 'initial';
+  disconnectButton.style.display = 'none';
   document.getElementById("error-msg").innerHTML = 'Device ' + device.name + ' is disconnected.';
   console.log('Device ' + device.name + ' is disconnected.');
 }
@@ -78,5 +82,15 @@ sendButton.onclick = async () => {
   let sendMsg = encoder.encode(ssid + ":" + pwd);
 
   console.log(sendMsg);
-  bDevice.writeValue(sendMsg);
+  bDevice.writeValue(sendMsg)
+  .then(_ => {
+    console.log('Details sent');
+    document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+  })
+  .catch(
+    error => {
+      console.log('There was an error sending details, please try again ' + error);
+      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+    }
+  );
 }

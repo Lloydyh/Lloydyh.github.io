@@ -30,7 +30,7 @@ html,
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  margin: 4px 2px;
+  margin: 15px 15px;
   cursor: pointer;
   font-size: 18px;
 }
@@ -38,7 +38,7 @@ html,
 #connected, #disconnectButton {
   display: none;
   font-size: 18px;
-  width: 50%;
+  width: 75%;
   margin: auto;
 }
 
@@ -48,6 +48,16 @@ html,
 }
 
 #error-msg {
-  width: 50%;
+  width: 75%;
   margin: auto;
+  font-size: 12px;
+}
+
+#info-text {
+  width: 75%;
+  margin: auto;
+}
+
+p {
+  font-size: 12px;
 }
