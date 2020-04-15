@@ -42,7 +42,15 @@ connectButton.onclick = async () => {
   .then(characteristics => {
     let queue = Promise.resolve();
     characteristics.forEach(characteristic => {
-      console.log(characteristic.uuid);
+      switch (characteristic.uuid) {
+
+        case ssidUuid:
+          aDevice = characteristic;
+
+        case pwdUuid:
+          bDevice = characteristic;
+
+        default: log('> Unknown Characteristic: ' + characteristic.uuid);
     })
     return queue;
   })
@@ -97,7 +105,6 @@ sendButton.onclick = async () => {
   //console.log(Decodeuint8arr(sendMsg));
 
   aDevice.writeValue(ssidEncode)
-  .then(sendPwd = bDevice.writeValue(pwdEncode))
   .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
