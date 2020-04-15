@@ -33,14 +33,20 @@ connectButton.onclick = async () => {
     device.addEventListener('gattserverdisconnected', onDisconnected);
     return device.gatt.connect();
   })
-  .then(server => server.getPrimaryService(primaryServiceUuid))
-  .then(service1 => service1.getCharacteristic(ssidUuid))
-  .then(characteristic1 => {
-    aDevice = characteristic1;
+  .then(server => {
+    return server.getPrimaryService(primaryServiceUuid)
   })
-  .then(service2 => service2.getCharacteristic(pwdUuid))
-  .then(characteristic2 => {
-    bDevice = characteristic2;
+  .then(service => {
+    return service.getCharacteristics()
+  })
+  .then(characteristics => {
+    let queue = Promise.resolve();
+    characteristics.forEach(characteristic => {
+      console.log(characteristic.uuid);
+    })
+    return queue;
+  })
+  .then(_ => {
     console.log('Connected');
     connected.style.display = 'block';
     connectButton.style.display = 'none';
