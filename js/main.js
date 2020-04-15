@@ -82,8 +82,8 @@ sendButton.onclick = async () => {
   let ssidEncode = encoder.encode(ssid);
   let pwdEncode = encoder.encode(pwd);
 
-  console.log(sendMsg);
-  console.log(Decodeuint8arr(sendMsg));
+  //console.log(sendMsg);
+  //console.log(Decodeuint8arr(sendMsg));
 
   bDevice.writeValue(ssidEncode)
   .then(sendPwd = bDevice.writeValue(pwdEncode))
