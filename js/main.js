@@ -4,10 +4,11 @@ const sendButton = document.getElementById('sendButton');
 const connected = document.getElementById('connected');
 
 let device, sendCharacteristic, receiveCharacteristic;
-let bDevice;
+let aDevice, bDevice;
 
 const primaryServiceUuid = '136b6c37-4561-47d9-8719-31c8c06a6930';
-const sendCharUuid = '950c5147-555f-41c0-ab03-6225c489b9db';
+const ssidUuid = '950c5147-555f-41c0-ab03-6225c489b9db';
+const pwdUuid = '8752d073-7490-455e-a65c-7614636f330e';
 
 window.onload = () => {
   'use strict';
@@ -33,9 +34,13 @@ connectButton.onclick = async () => {
     return device.gatt.connect();
   })
   .then(server => server.getPrimaryService(primaryServiceUuid))
-  .then(service => service.getCharacteristic(sendCharUuid))
-  .then(characteristic => {
-    bDevice = characteristic;
+  .then(service1 => service1.getCharacteristic(ssidUuid))
+  .then(characteristic1 => {
+    aDevice = characteristic1;
+  })
+  .then(service2 => service2.getCharacteristic(pwdUuid))
+  .then(characteristic2 => {
+    bDevice = characteristic2;
     console.log('Connected');
     connected.style.display = 'block';
     connectButton.style.display = 'none';
@@ -85,7 +90,7 @@ sendButton.onclick = async () => {
   //console.log(sendMsg);
   //console.log(Decodeuint8arr(sendMsg));
 
-  bDevice.writeValue(ssidEncode)
+  aDevice.writeValue(ssidEncode)
   .then(sendPwd = bDevice.writeValue(pwdEncode))
   .then(_ => {
     console.log('Details sent');
