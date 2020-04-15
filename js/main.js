@@ -51,6 +51,7 @@ connectButton.onclick = async () => {
           bDevice = characteristic;
 
         default: log('> Unknown Characteristic: ' + characteristic.uuid);
+      }
     })
     return queue;
   })
