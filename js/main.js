@@ -50,7 +50,8 @@ connectButton.onclick = async () => {
         case pwdUuid:
           bDevice = characteristic;
 
-        default: log('> Unknown Characteristic: ' + characteristic.uuid);
+        default:
+          console.log('> Unknown Characteristic: ' + characteristic.uuid);
       }
     })
     return queue;
