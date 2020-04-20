@@ -47,6 +47,7 @@ connectButton.onclick = async () => {
 
         case ssidUuid:
           aDevice = characteristic;
+          aDevice.addEventListener('characteristicvaluechanged', handleNotifications);
           console.log('Found Characteristic: ' + characteristic.uuid);
           document.getElementById("debug_ssid").innerHTML = 'Char 1: ' + characteristic.uuid;
           break;
@@ -118,11 +119,8 @@ sendButton.onclick = async () => {
   .then(_ => {
     return bDevice.writeValue(pwdEncode)
   })*/
-  aDevice.startNotifications()
-  .then(_ => {
-    console.log('> Notifications started');
-    return aDevice.addEventListener('characteristicvaluechanged', handleNotifications);
-  })
+
+  aDevice.startNotifications(
   .then(_ => {
     return aDevice.writeValue(ssidEncode)
   })
