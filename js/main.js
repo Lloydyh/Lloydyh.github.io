@@ -59,7 +59,7 @@ connectButton.onclick = async () => {
 
         case pwdUuid:
           bDevice = characteristic;
-          bDevice.addEventListener('characteristicvaluechanged', handleNotifications);
+          bDevice.addEventListener('characteristicvaluechanged', handleNotifications2);
           console.log('Found Characteristic: ' + characteristic.uuid);
           document.getElementById("debug_pwd").innerHTML = 'Char 2: ' + characteristic.uuid;
           break;
@@ -166,6 +166,10 @@ function handleNotifications(event) {
     console.log('Password recieved');
   }
 
+}
+
+function handleNotifications2(event) {
+  console.log('Notification 2 Recived');
 }
 
 function Decodeuint8arr(uint8array){
