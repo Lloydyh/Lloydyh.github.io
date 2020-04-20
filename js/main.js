@@ -2,6 +2,7 @@ const connectButton = document.getElementById('connectButton');
 const disconnectButton = document.getElementById('disconnectButton');
 const sendButton = document.getElementById('sendButton');
 const connected = document.getElementById('connected');
+const debugDiv = document.getElementById('debug_div');
 
 let device, sendCharacteristic, receiveCharacteristic;
 let aDevice, bDevice;
@@ -41,23 +42,27 @@ connectButton.onclick = async () => {
   })
   .then(characteristics => {
     let queue = Promise.resolve();
+    char_output = '';
     characteristics.forEach(characteristic => {
       switch (characteristic.uuid) {
 
         case ssidUuid:
           aDevice = characteristic;
           console.log('Found Characteristic: ' + characteristic.uuid);
+          char_output = 'Char 1: ' + characteristic.uuid + '\n';
           break;
 
         case pwdUuid:
           bDevice = characteristic;
           console.log('Found Characteristic: ' + characteristic.uuid);
+          char_output = 'Char 2: ' + characteristic.uuid + '\n';
           break;
 
         default:
           console.log('> Unknown Characteristic: ' + characteristic.uuid);
       }
     })
+    document.getElementById("debug_div-msg").innerHTML = char_output
     return queue;
   })
   .then(_ => {
