@@ -49,6 +49,11 @@ connectButton.onclick = async () => {
           aDevice = characteristic;
           aDevice.addEventListener('characteristicvaluechanged', handleNotifications);
           console.log('Found Characteristic: ' + characteristic.uuid);
+          console.log('> Characteristic UUID:  ' + characteristic.uuid);
+          console.log('> Broadcast:            ' + characteristic.properties.broadcast);
+          console.log('> Read:                 ' + characteristic.properties.read);
+          console.log('> Write:                ' + characteristic.properties.write);
+          console.log('> Notify:               ' + characteristic.properties.notify);
           document.getElementById("debug_ssid").innerHTML = 'Char 1: ' + characteristic.uuid;
           break;
 
