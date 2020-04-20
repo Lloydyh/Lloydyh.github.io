@@ -42,27 +42,25 @@ connectButton.onclick = async () => {
   })
   .then(characteristics => {
     let queue = Promise.resolve();
-    char_output = '';
     characteristics.forEach(characteristic => {
       switch (characteristic.uuid) {
 
         case ssidUuid:
           aDevice = characteristic;
           console.log('Found Characteristic: ' + characteristic.uuid);
-          char_output = 'Char 1: ' + characteristic.uuid + '\n';
+          document.getElementById("debug_ssid").innerHTML = 'Char 1: ' + characteristic.uuid;
           break;
 
         case pwdUuid:
           bDevice = characteristic;
           console.log('Found Characteristic: ' + characteristic.uuid);
-          char_output = 'Char 2: ' + characteristic.uuid + '\n';
+          document.getElementById("debug_pwd").innerHTML = 'Char 2: ' + characteristic.uuid;
           break;
 
         default:
           console.log('> Unknown Characteristic: ' + characteristic.uuid);
       }
     })
-    document.getElementById("debug_div").innerHTML = char_output
     return queue;
   })
   .then(_ => {
