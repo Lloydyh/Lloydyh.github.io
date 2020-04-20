@@ -59,6 +59,7 @@ connectButton.onclick = async () => {
 
         case pwdUuid:
           bDevice = characteristic;
+          bDevice.addEventListener('characteristicvaluechanged', handleNotifications);
           console.log('Found Characteristic: ' + characteristic.uuid);
           document.getElementById("debug_pwd").innerHTML = 'Char 2: ' + characteristic.uuid;
           break;
@@ -109,26 +110,11 @@ function onDisconnected(event) {
 }
 
 sendButton.onclick = async () => {
-  let ssid = document.getElementById("ssid").value;
-  let pwd = document.getElementById("pwd").value;
 
+  let ssid = document.getElementById("ssid").value;
   let encoder = new TextEncoder('utf-8');
   let ssidEncode = encoder.encode(ssid);
-  let pwdEncode = encoder.encode(pwd);
 
-
-  //console.log(sendMsg);
-  //console.log(Decodeuint8arr(sendMsg));
-
-  /*aDevice.writeValue(ssidEncode)
-  .then(_ => {
-    return bDevice.writeValue(pwdEncode)
-  })*/
-/*
-.then(_ => {
-  return aDevice.writeValue(ssidEncode)
-})
-*/
   aDevice.startNotifications()
   .then(_ => {
     return aDevice.writeValue(ssidEncode)
@@ -145,11 +131,41 @@ sendButton.onclick = async () => {
   );
 }
 
+function sendPassword(){
+
+  let pwd = document.getElementById("pwd").value;
+  let encoder = new TextEncoder('utf-8');
+  let pwdEncode = encoder.encode(pwd);
+
+  bDevice.writeValue(pwdEncode)
+  .then(_ => {
+    console.log('Details sent');
+    document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+  })
+  .catch(
+    error => {
+      console.log('There was an error sending details, please try again ' + error);
+      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+    }
+  );
+}
+
 function handleNotifications(event) {
   console.log('Notification Recived');
-  let value = event.target.value;
-  value = Decodeuint8arr(value);
-  console.log('> ' + value);
+
+  if (event.target.uuid == ssidUuid) {
+    let value = event.target.value;
+    value = Decodeuint8arr(value);
+    if (value == 'ssid'){
+        console.log('> ' + value);
+        sendPassword();
+    }
+  }
+
+  if (event.target.uuid == pwdUuid) {
+    console.log('Password recieved');
+  }
+
 }
 
 function Decodeuint8arr(uint8array){
