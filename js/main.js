@@ -120,7 +120,7 @@ sendButton.onclick = async () => {
     return bDevice.writeValue(pwdEncode)
   })*/
 
-  aDevice.startNotifications(
+  aDevice.startNotifications()
   .then(_ => {
     return aDevice.writeValue(ssidEncode)
   })
