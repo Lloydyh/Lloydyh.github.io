@@ -137,7 +137,10 @@ function sendPassword(){
   let encoder = new TextEncoder('utf-8');
   let pwdEncode = encoder.encode(pwd);
 
-  bDevice.writeValue(pwdEncode)
+  bDevice.startNotifications()
+  .then(_ => {
+    return bDevice.writeValue(pwdEncode)
+  })
   .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
