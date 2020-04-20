@@ -4,7 +4,7 @@ const sendButton = document.getElementById('sendButton');
 const connected = document.getElementById('connected');
 const debugDiv = document.getElementById('debug_div');
 
-let device, sendCharacteristic, receiveCharacteristic;
+let device;
 let aDevice, bDevice;
 
 const primaryServiceUuid = '136b6c37-4561-47d9-8719-31c8c06a6930';
@@ -47,10 +47,6 @@ connectButton.onclick = async () => {
 
         case ssidUuid:
           aDevice = characteristic;
-          aDevice.startNotifications().then(_ => {
-            console.log('> Notifications started');
-            aDevice.addEventListener('characteristicvaluechanged', handleNotifications);
-          });
           console.log('Found Characteristic: ' + characteristic.uuid);
           document.getElementById("debug_ssid").innerHTML = 'Char 1: ' + characteristic.uuid;
           break;
@@ -114,13 +110,21 @@ sendButton.onclick = async () => {
   let ssidEncode = encoder.encode(ssid);
   let pwdEncode = encoder.encode(pwd);
 
+  aDevice.startNotifications()
+  .then(_ => {
+    console.log('> Notifications started');
+    return aDevice.addEventListener('characteristicvaluechanged', handleNotifications);
+  })
+  .then(_ => {
+    return aDevice.writeValue(ssidEncode)
+  })
   //console.log(sendMsg);
   //console.log(Decodeuint8arr(sendMsg));
 
-  aDevice.writeValue(ssidEncode)
+  /*aDevice.writeValue(ssidEncode)
   .then(_ => {
     return bDevice.writeValue(pwdEncode)
-  })
+  })*/
   .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
