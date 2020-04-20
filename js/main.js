@@ -113,7 +113,7 @@ sendButton.onclick = async () => {
   //console.log(sendMsg);
   //console.log(Decodeuint8arr(sendMsg));
 
-  aDevice.writeValue('Hello')
+  aDevice.writeValue(ssidEncode)
   .then(_ => {
     return bDevice.writeValue(pwdEncode)
   })
