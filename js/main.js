@@ -149,7 +149,7 @@ function handleNotifications(event) {
   console.log('Notification Recived');
   let value = event.target.value;
   value = Decodeuint8arr(value);
-  console.log('> ' value);
+  console.log('> ', value);
 }
 
 function Decodeuint8arr(uint8array){
