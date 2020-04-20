@@ -62,7 +62,7 @@ connectButton.onclick = async () => {
           console.log('> Unknown Characteristic: ' + characteristic.uuid);
       }
     })
-    document.getElementById("debug_div-msg").innerHTML = char_output
+    document.getElementById("debug_div").innerHTML = char_output
     return queue;
   })
   .then(_ => {
