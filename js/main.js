@@ -113,10 +113,11 @@ sendButton.onclick = async () => {
   //console.log(sendMsg);
   //console.log(Decodeuint8arr(sendMsg));
 
-  aDevice.writeValue(ssidEncode)
   /*.then(_ => {
     return bDevice.writeValue(pwdEncode)
   })*/
+
+  aDevice.writeValue(ssidEncode)
   .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
