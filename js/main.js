@@ -131,6 +131,9 @@ sendButton.onclick = async () => {
 */
   aDevice.startNotifications()
   .then(_ => {
+    return aDevice.writeValue(ssidEncode)
+  })
+  .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
   })
