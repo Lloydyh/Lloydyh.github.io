@@ -60,7 +60,7 @@ connectButton.onclick = async () => {
           console.log('> Read:                 ' + characteristic.properties.read);
           console.log('> Write:                ' + characteristic.properties.write);
           console.log('> Notify:               ' + characteristic.properties.notify);
-          msg = msg + "/n Char 1: " + characteristic.uuid;
+          msg = msg + "\n Char 1: " + characteristic.uuid;
           break;
 
         case pwdUuid:
@@ -72,7 +72,7 @@ connectButton.onclick = async () => {
           console.log('> Read:                 ' + characteristic.properties.read);
           console.log('> Write:                ' + characteristic.properties.write);
           console.log('> Notify:               ' + characteristic.properties.notify);
-          msg = msg + "/n Char 2: " + characteristic.uuid;
+          msg = msg + "\n Char 2: " + characteristic.uuid;
           break;
 
         default:
