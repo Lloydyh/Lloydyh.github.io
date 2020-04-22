@@ -8,9 +8,9 @@ const primaryServiceUuid = '136b6c37-4561-47d9-8719-31c8c06a6930';
 const ssidUuid = '950c5147-555f-41c0-ab03-6225c489b9db';
 const pwdUuid = '8752d073-7490-455e-a65c-7614636f330e';
 
-const SSID_STORED = 1;
-const PASSWORD_STORED = 2;
-const NETWORK_CONNECTED = 3;
+const SSID_STORED = '1';
+const PASSWORD_STORED = '2';
+const NETWORK_CONNECTED = '3';
 
 let device;
 let aDevice, bDevice;
