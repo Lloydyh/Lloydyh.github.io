@@ -11,6 +11,7 @@ const pwdUuid = '8752d073-7490-455e-a65c-7614636f330e';
 const SSID_STORED = '1';
 const PASSWORD_STORED = '2';
 const NETWORK_CONNECTED = '3';
+const NETWORK_NOT_CONNECTED = '4';
 
 let device, aDevice, bDevice;
 let network_success = false;
@@ -188,6 +189,11 @@ function handleNotifications(event) {
         network_success = true;
         document.getElementById("debug_msg").innerHTML = "Your Bramwell Brown clock is now connected to your network";
         console.log('Network connected');
+    }
+    if (value == NETWORK_NOT_CONNECTED){
+        network_success = false;
+        document.getElementById("debug_msg").innerHTML = "Clock NOT connected please try again";
+        console.log('Network NOT connected');
     }
   }
 
