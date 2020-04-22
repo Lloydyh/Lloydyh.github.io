@@ -126,6 +126,7 @@ function onDisconnected(event) {
 sendButton.onclick = async () => {
 
   let ssid = document.getElementById("ssid").value;
+  ssid = "ssid|" + ssid;
   let encoder = new TextEncoder('utf-8');
   let ssidEncode = encoder.encode(ssid);
 
@@ -148,6 +149,7 @@ sendButton.onclick = async () => {
 function sendPassword(){
 
   let pwd = document.getElementById("pwd").value;
+  ssid = "pwd|" + pwd;
   let encoder = new TextEncoder('utf-8');
   let pwdEncode = encoder.encode(pwd);
 
