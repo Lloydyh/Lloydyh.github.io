@@ -149,7 +149,7 @@ sendButton.onclick = async () => {
 function sendPassword(){
 
   let pwd = document.getElementById("pwd").value;
-  ssid = "pwd|" + pwd;
+  pwd = "pwd|" + pwd;
   let encoder = new TextEncoder('utf-8');
   let pwdEncode = encoder.encode(pwd);
 
