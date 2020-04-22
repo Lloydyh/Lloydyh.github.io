@@ -170,6 +170,8 @@ function handleNotifications(event) {
   }
 
   if (event.target.uuid == pwdUuid) {
+    let value = event.target.value;
+    value = Decodeuint8arr(value);
     if (value == PASSWORD_STORED){
         console.log('Password recieved');
     }
