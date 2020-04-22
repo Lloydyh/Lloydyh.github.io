@@ -12,8 +12,8 @@ const SSID_STORED = '1';
 const PASSWORD_STORED = '2';
 const NETWORK_CONNECTED = '3';
 
-let device;
-let aDevice, bDevice;
+let device, aDevice, bDevice;
+let network_success = false;
 
 window.onload = () => {
   'use strict';
@@ -25,6 +25,8 @@ window.onload = () => {
 }
 
 connectButton.onclick = async () => {
+  network_success = false;
+  let msg = "Available chracteristics";
   document.getElementById("error-msg").innerHTML = "";
   navigator.bluetooth.requestDevice(
     {
@@ -58,14 +60,19 @@ connectButton.onclick = async () => {
           console.log('> Read:                 ' + characteristic.properties.read);
           console.log('> Write:                ' + characteristic.properties.write);
           console.log('> Notify:               ' + characteristic.properties.notify);
-          document.getElementById("debug_ssid").innerHTML = 'Char 1: ' + characteristic.uuid;
+          msg = msg + "/n Char 1: " + characteristic.uuid;
           break;
 
         case pwdUuid:
           bDevice = characteristic;
           bDevice.addEventListener('characteristicvaluechanged', handleNotifications);
           console.log('Found Characteristic: ' + characteristic.uuid);
-          document.getElementById("debug_pwd").innerHTML = 'Char 2: ' + characteristic.uuid;
+          console.log('> Characteristic UUID:  ' + characteristic.uuid);
+          console.log('> Broadcast:            ' + characteristic.properties.broadcast);
+          console.log('> Read:                 ' + characteristic.properties.read);
+          console.log('> Write:                ' + characteristic.properties.write);
+          console.log('> Notify:               ' + characteristic.properties.notify);
+          msg = msg + "/n Char 2: " + characteristic.uuid;
           break;
 
         default:
@@ -75,6 +82,7 @@ connectButton.onclick = async () => {
     return queue;
   })
   .then(_ => {
+    document.getElementById("debug_msg").innerHTML = msg;
     console.log('Connected');
     connected.style.display = 'block';
     connectButton.style.display = 'none';
@@ -96,16 +104,17 @@ disconnectButton.onclick = async () => {
     return;
   }
   console.log('Disconnecting from Bluetooth Device...');
+  document.getElementById("error-msg").innerHTML = 'Disconnecting from Bluetooth Device...';
   if (device.gatt.connected) {
     device.gatt.disconnect();
   } else {
     console.log('> Bluetooth Device is already disconnected');
+    document.getElementById("error-msg").innerHTML = '> Bluetooth Device is already disconnected';
   }
 }
 
 function onDisconnected(event) {
   let device = event.target;
-
   connected.style.display = 'none';
   connectButton.style.display = 'initial';
   disconnectButton.style.display = 'none';
@@ -125,12 +134,12 @@ sendButton.onclick = async () => {
   })
   .then(_ => {
     console.log('Details sent');
-    document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+    document.getElementById("error-msg").innerHTML = "SSID successfully sent";
   })
   .catch(
     error => {
       console.log('There was an error sending details, please try again ' + error);
-      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+      document.getElementById("error-msg").innerHTML = "There was an error sending details, please try again.";
     }
   );
 }
@@ -147,12 +156,12 @@ function sendPassword(){
   })
   .then(_ => {
     console.log('Details sent');
-    document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+    document.getElementById("error-msg").innerHTML = "Password successfully sent";
   })
   .catch(
     error => {
       console.log('There was an error sending details, please try again ' + error);
-      document.getElementById("error-msg").innerHTML = "No Bramwell Brown clocks were found, please put your clock into bluetooth mode and press the connect button again.";
+      document.getElementById("error-msg").innerHTML = "There was an error sending details, please try again";
     }
   );
 }
@@ -176,6 +185,8 @@ function handleNotifications(event) {
         console.log('Password recieved');
     }
     if (value == NETWORK_CONNECTED){
+        network_success = true;
+        document.getElementById("debug_msg").innerHTML = "Your Bramwell Brown clock is now connected to your network";
         console.log('Network connected');
     }
   }

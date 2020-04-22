@@ -47,7 +47,7 @@ html,
   width: 50px;
 }
 
-#error-msg {
+#error-msg, #debug_ssid, #debug_pwd {
   width: 75%;
   margin: auto;
   font-size: 12px;
