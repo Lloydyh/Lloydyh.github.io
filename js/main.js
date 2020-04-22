@@ -149,9 +149,9 @@ sendButton.onclick = async () => {
 function sendPassword(){
 
   let pwd = document.getElementById("pwd").value;
-  pwd = "pwd|" + pwd;
+  let p = "pwd|" + pwd;
   let encoder = new TextEncoder('utf-8');
-  let pwdEncode = encoder.encode(pwd);
+  let pwdEncode = encoder.encode(p);
 
   /*
   theD = aDevice;
