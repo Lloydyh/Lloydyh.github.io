@@ -151,10 +151,17 @@ function sendPassword(){
   let encoder = new TextEncoder('utf-8');
   let pwdEncode = encoder.encode(pwd);
 
-  bDevice.startNotifications()
+  /*
+  theD = aDevice;
+  if (bDevice) {
+    theD = bDevice;
+  }
+  aDevice.startNotifications()
   .then(_ => {
     return bDevice.writeValue(pwdEncode)
   })
+  */
+  aDevice.writeValue(pwdEncode)
   .then(_ => {
     console.log('Details sent');
     document.getElementById("error-msg").innerHTML = "Password successfully sent";
@@ -176,6 +183,19 @@ function handleNotifications(event) {
     if (value == SSID_STORED){
         console.log('> ' + value);
         sendPassword();
+    }
+    if (value == PASSWORD_STORED){
+        console.log('Password recieved');
+    }
+    if (value == NETWORK_CONNECTED){
+        network_success = true;
+        document.getElementById("debug_msg").innerHTML = "Your Bramwell Brown clock is now connected to your network";
+        console.log('Network connected');
+    }
+    if (value == NETWORK_NOT_CONNECTED){
+        network_success = false;
+        document.getElementById("debug_msg").innerHTML = "Clock NOT connected please try again";
+        console.log('Network NOT connected');
     }
   }
 
