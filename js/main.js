@@ -4,12 +4,16 @@ const sendButton = document.getElementById('sendButton');
 const connected = document.getElementById('connected');
 const debugDiv = document.getElementById('debug_div');
 
-let device;
-let aDevice, bDevice;
-
 const primaryServiceUuid = '136b6c37-4561-47d9-8719-31c8c06a6930';
 const ssidUuid = '950c5147-555f-41c0-ab03-6225c489b9db';
 const pwdUuid = '8752d073-7490-455e-a65c-7614636f330e';
+
+const SSID_STORED = 1;
+const PASSWORD_STORED = 2;
+const NETWORK_CONNECTED = 3;
+
+let device;
+let aDevice, bDevice;
 
 window.onload = () => {
   'use strict';
@@ -59,7 +63,7 @@ connectButton.onclick = async () => {
 
         case pwdUuid:
           bDevice = characteristic;
-          bDevice.addEventListener('characteristicvaluechanged', handleNotifications2);
+          bDevice.addEventListener('characteristicvaluechanged', handleNotifications);
           console.log('Found Characteristic: ' + characteristic.uuid);
           document.getElementById("debug_pwd").innerHTML = 'Char 2: ' + characteristic.uuid;
           break;
@@ -154,25 +158,26 @@ function sendPassword(){
 }
 
 function handleNotifications(event) {
-  console.log('Notification Recived');
+  console.log('Notification Received');
 
   if (event.target.uuid == ssidUuid) {
     let value = event.target.value;
     value = Decodeuint8arr(value);
-    if (value == 'ssid'){
+    if (value == SSID_STORED){
         console.log('> ' + value);
         sendPassword();
     }
   }
 
   if (event.target.uuid == pwdUuid) {
-    console.log('Password recieved');
+    if (value == PASSWORD_STORED){
+        console.log('Password recieved');
+    }
+    if (value == NETWORK_CONNECTED){
+        console.log('Network connected');
+    }
   }
 
-}
-
-function handleNotifications2(event) {
-  console.log('Notification 2 Recived');
 }
 
 function Decodeuint8arr(uint8array){
