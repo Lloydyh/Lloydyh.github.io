@@ -154,10 +154,6 @@ function sendPassword(){
   let pwdEncode = encoder.encode(p);
 
   /*
-  theD = aDevice;
-  if (bDevice) {
-    theD = bDevice;
-  }
   aDevice.startNotifications()
   .then(_ => {
     return bDevice.writeValue(pwdEncode)
