@@ -5,7 +5,7 @@ body {
 /* Make content area fill the entire browser window */
 html,
 .fullscreen {
-  display: flex;
+  /*display: flex;*/
   height: 100%;
   margin: 0;
   padding: 0;
@@ -14,8 +14,15 @@ html,
 
 /* Center the content in the browser window */
 .container {
+  padding-top: 50px;
   margin: auto;
   text-align: center;
+  vertical-align: text-top;
+  width: 70%;
+}
+
+#branding {
+
 }
 
 .title {
@@ -35,7 +42,11 @@ html,
   font-size: 18px;
 }
 
-#connected, #disconnectButton {
+#login, #enter_location, #turn_on_bluetooth, #enter_wifi_details, #location_list, #connect{
+  display: none;
+}
+
+#connected, #disconnect_button {
   display: none;
   font-size: 18px;
   width: 75%;
@@ -54,11 +65,28 @@ html,
   color: #DC143C;
 }
 
-#info-text {
-  width: 75%;
-  margin: auto;
+h3 {
+  font-weight: normal;
 }
 
 p {
   font-size: 12px;
+}
+
+ol {
+  font-size: 12px;
+  text-align: left;
+}
+
+#list_of_locations {
+  list-style: none;
+}
+
+#list_of_locations li{
+    padding-top: 20px;
+    font-size: 14px;
+}
+
+#list_of_locations li a{
+    color: black;
 }
