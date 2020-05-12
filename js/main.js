@@ -53,6 +53,8 @@ $(document).ready(function(){
     request.done(function( msg ) {
       console.log( msg );
       auth_token = msg.authToken;
+      $("#login").hide();
+      $("#turn_on_bluetooth").show();
     });
 
     request.fail(function( jqXHR, textStatus ) {
@@ -60,8 +62,6 @@ $(document).ready(function(){
       document.getElementById("debug_msg").innerHTML = "Request failed: " + textStatus;
     });
 
-    $("#login").hide();
-    $("#turn_on_bluetooth").show();
   });
 
   $("#goto_location_button").click(function(){
