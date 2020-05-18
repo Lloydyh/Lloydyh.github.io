@@ -135,8 +135,8 @@ $(document).ready(function(){
     location_lat = obj.latitude;
     location_long = obj.longitude;
 
-    location_lat = location_lat.toFixed(8);
-    location_long = location_long.toFixed(8);
+    location_lat = location_lat.toFixed(6);
+    location_long = location_long.toFixed(6);
 
     $('#connect h3').text(loc);
 
@@ -280,7 +280,7 @@ $(document).ready(function(){
     }
 
     if (num == LONG_SENT){
-        data = LONG_SENT + "|long"// + location_long;
+        data = LONG_SENT + "|" + location_long;
         msg = "Longitude successfully sent: ", data;
     }
 
