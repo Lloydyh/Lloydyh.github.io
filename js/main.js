@@ -135,6 +135,9 @@ $(document).ready(function(){
     location_lat = obj.latitude;
     location_long = obj.longitude;
 
+    location_lat = location_lat.toFixed(8);
+    location_long = location_long.toFixed(8);
+
     $('#connect h3').text(loc);
 
     $("#enter_location").hide();
