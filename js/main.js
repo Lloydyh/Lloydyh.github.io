@@ -5,19 +5,29 @@ const primaryServiceUuid = '136b6c37-4561-47d9-8719-31c8c06a6930';
 const ssidUuid = '950c5147-555f-41c0-ab03-6225c489b9db';
 const pwdUuid = '8752d073-7490-455e-a65c-7614636f330e';
 
-const LONG_STORED = '1';
-const LAT_STORED = '2';
-const SSID_STORED = '3';
+const SSID_SENT = '1';
+const SSID_STORED = '2';
+const PASSWORD_SENT = '3';
 const PASSWORD_STORED = '4';
-const NETWORK_CONNECTED = '5';
-const NETWORK_NOT_CONNECTED = '6';
+const LAT_SENT = '5';
+const LAT_STORED = '6';
+const LONG_SENT = '7';
+const LONG_STORED = '8';
+const AUTH_TOKEN_SENT = '9';
+const AUTH_TOKEN_STORED = '10';
+const NETWORK_CONNECTED = '11';
+const NETWORK_NOT_CONNECTED = '12';
 
 let bb_url = 'https://bramwell-brown.herokuapp.com/';
 //let bb_url = 'http://localhost:3000/';
 let device, aDevice, bDevice;
 let network_success = false;
+let ssid;
+let password;
 let auth_token;
-let long_lat;
+let location_obj;
+let location_lat;
+let location_long;
 
 window.onload = () => {
   'use strict';
@@ -95,7 +105,7 @@ $(document).ready(function(){
         loc = city + ", " + country + ", " + state;
         console.log(city + ", " + country + ", " + state);
         //let val = value.latitude.toString() + ',' + value.longitude.toString();
-        long_lat = res.Success;
+        location_obj = res.Success;
         $("#list_of_locations").append("<li value='" + key + "'><a href='javascript:void(0);' class='location_results'>" + loc +"</a></li>");
       });
 
@@ -113,13 +123,17 @@ $(document).ready(function(){
     console.log($(this).val());
     let long_lat_val = $(this).val();
 
-    console.log(long_lat[long_lat_val]);
-    let obj = long_lat[long_lat_val];
-
+    let obj = location_obj[long_lat_val];
     let city = obj.city;
     let country = obj.country;
     let state = obj.state;
     let loc = city + ", " + country + ", " + state;
+
+    console.log('Latitude: ', obj.latitude);
+    console.log('Longitude: ', obj.longitude);
+
+    location_lat = obj.latitude;
+    location_long = obj.longitude;
 
     $('#connect h3').text(loc);
 
@@ -227,18 +241,12 @@ $(document).ready(function(){
   }
 
   $("#send_button").click(function(){
-    let ssid = document.getElementById("ssid").value;
-    ssid = "ssid|" + ssid;
-    let encoder = new TextEncoder('utf-8');
-    let ssidEncode = encoder.encode(ssid);
+    ssid = document.getElementById("ssid").value;
+    password = document.getElementById("pwd").value;
 
     aDevice.startNotifications()
     .then(_ => {
-      return aDevice.writeValue(ssidEncode)
-    })
-    .then(_ => {
-      console.log('Details sent');
-      document.getElementById("error-msg").innerHTML = "SSID successfully sent";
+      sendData(SSID_SENT);
     })
     .catch(
       error => {
@@ -248,23 +256,43 @@ $(document).ready(function(){
     );
   });
 
-  function sendPassword(){
+  function sendData(num){
 
-    let pwd = document.getElementById("pwd").value;
-    let p = "pwd|" + pwd;
+    let data;
+    let msg;
+
+    if (num == SSID_SENT){
+        data = SSID_SENT + "|" + ssid;
+        msg = "SSID successfully sent";
+    }
+
+    if (num == PASSWORD_SENT){
+        data = PASSWORD_SENT + "|" + password;
+        msg = "Password successfully sent";
+    }
+
+    if (num == LAT_SENT){
+        data = LAT_SENT + "|" + location_lat;
+        msg = "Latitude successfully sent";
+    }
+
+    if (num == LONG_SENT){
+        data = LONG_SENT + "|" + location_long;
+        msg = "Longitude successfully sent";
+    }
+
+    if (num == AUTH_TOKEN_SENT){
+        data = AUTH_TOKEN_SENT + "|" + auth_token;
+        msg = "Auth token successfully sent";
+    }
+
     let encoder = new TextEncoder('utf-8');
-    let pwdEncode = encoder.encode(p);
+    let encodedData = encoder.encode(data);
 
-    /*
-    aDevice.startNotifications()
+    aDevice.writeValue(encodedData)
     .then(_ => {
-      return bDevice.writeValue(pwdEncode)
-    })
-    */
-    aDevice.writeValue(pwdEncode)
-    .then(_ => {
-      console.log('Details sent');
-      document.getElementById("error-msg").innerHTML = "Password successfully sent";
+      console.log('Data sent');
+      document.getElementById("error-msg").innerHTML = msg;
     })
     .catch(
       error => {
@@ -280,18 +308,37 @@ $(document).ready(function(){
     if (event.target.uuid == ssidUuid) {
       let value = event.target.value;
       value = Decodeuint8arr(value);
+
       if (value == SSID_STORED){
           console.log('> ' + value);
-          sendPassword();
+          sendData(PASSWORD_SENT);
       }
+
       if (value == PASSWORD_STORED){
           console.log('Password recieved');
+          sendData(LAT_SENT);
       }
+
+      if (value == LAT_STORED){
+          console.log('Latitude recieved');
+          sendData(LONG_SENT);
+      }
+
+      if (value == LONG_STORED){
+          console.log('Longitude recieved');
+          sendAuth(AUTH_TOKEN_SENT);
+      }
+
+      if (value == AUTH_TOKEN_STORED){
+          console.log('Auth token recieved');
+      }
+
       if (value == NETWORK_CONNECTED){
           network_success = true;
           document.getElementById("debug_msg").innerHTML = "Your Bramwell Brown clock is now connected to your network";
           console.log('Network connected');
       }
+
       if (value == NETWORK_NOT_CONNECTED){
           network_success = false;
           document.getElementById("debug_msg").innerHTML = "Clock NOT connected please try again";
