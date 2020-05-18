@@ -280,7 +280,7 @@ $(document).ready(function(){
     }
 
     if (num == LONG_SENT){
-        data = LONG_SENT + "|" + location_long;
+        data = LONG_SENT + "|long"// + location_long;
         msg = "Longitude successfully sent: ", data;
     }
 
