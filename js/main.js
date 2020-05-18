@@ -263,27 +263,27 @@ $(document).ready(function(){
 
     if (num == SSID_SENT){
         data = SSID_SENT + "|" + ssid;
-        msg = "SSID successfully sent";
+        msg = "SSID successfully sent: ", data;
     }
 
     if (num == PASSWORD_SENT){
         data = PASSWORD_SENT + "|" + password;
-        msg = "Password successfully sent";
+        msg = "Password successfully sent: ", data;
     }
 
     if (num == LAT_SENT){
         data = LAT_SENT + "|" + location_lat;
-        msg = "Latitude successfully sent";
+        msg = "Latitude successfully sent: ", data;
     }
 
     if (num == LONG_SENT){
         data = LONG_SENT + "|" + location_long;
-        msg = "Longitude successfully sent";
+        msg = "Longitude successfully sent: ", data;
     }
 
     if (num == AUTH_TOKEN_SENT){
         data = AUTH_TOKEN_SENT + "|" + auth_token;
-        msg = "Auth token successfully sent";
+        msg = "Auth token successfully sent: ", data;
     }
 
     let encoder = new TextEncoder('utf-8');
@@ -326,7 +326,7 @@ $(document).ready(function(){
 
       if (value == LONG_STORED){
           console.log('Longitude recieved');
-          sendAuth(AUTH_TOKEN_SENT);
+          sendData(AUTH_TOKEN_SENT);
       }
 
       if (value == AUTH_TOKEN_STORED){
