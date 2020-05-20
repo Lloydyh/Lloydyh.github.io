@@ -248,8 +248,8 @@ $(document).ready(function(){
     password = document.getElementById("pwd").value;
 
     //trim white space
-    ssid.trim()
-    password.trim()
+    ssid = ssid.trim();
+    password = password.trim();
 
     aDevice.startNotifications()
     .then(_ => {
