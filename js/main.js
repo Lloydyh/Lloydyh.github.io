@@ -247,6 +247,10 @@ $(document).ready(function(){
     ssid = document.getElementById("ssid").value;
     password = document.getElementById("pwd").value;
 
+    //trim white space
+    ssid.trim()
+    password.trim()
+
     aDevice.startNotifications()
     .then(_ => {
       sendData(SSID_SENT);
