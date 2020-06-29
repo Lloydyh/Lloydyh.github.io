@@ -322,7 +322,7 @@ $(document).ready(function(){
       if (res == SSID_STORED){
           console.log('> ' + value);
           let ver = value.split("|");
-          document.getElementById("firmware_version").innerHTML = "Firmware version: " + ver;
+          document.getElementById("firmware_version").innerHTML = "Firmware version: " + ver[1];
           sendData(PASSWORD_SENT);
       }
 
