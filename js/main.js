@@ -43,6 +43,7 @@ $(document).ready(function(){
 
   $("#get_started_button").click(function(){
     console.log("Turn Bluetooth On");
+    document.getElementById("firmware_version").innerHTML = " ";
     $("#get_started").hide();
     $("#login").show();
   });
@@ -316,8 +317,12 @@ $(document).ready(function(){
       let value = event.target.value;
       value = Decodeuint8arr(value);
 
-      if (value == SSID_STORED){
+      let res = str.substring(0, 1);
+
+      if (res == SSID_STORED){
           console.log('> ' + value);
+          let ver = value.split("|");
+          document.getElementById("firmware_version").innerHTML = "Firmware version: " + str(ver);
           sendData(PASSWORD_SENT);
       }
 
