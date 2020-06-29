@@ -342,13 +342,15 @@ $(document).ready(function(){
 
       if (value == NETWORK_CONNECTED){
           network_success = true;
+          document.getElementById("error-msg").innerHTML = "";
           document.getElementById("debug_msg").innerHTML = "Your Bramwell Brown clock is now connected to your network";
           console.log('Network connected');
       }
 
       if (value == NETWORK_NOT_CONNECTED){
           network_success = false;
-          document.getElementById("debug_msg").innerHTML = "Clock NOT connected please try again";
+          document.getElementById("error-msg").innerHTML = "";
+          document.getElementById("debug_msg").innerHTML = "Error connecting Clock please check you wifi details and try again";
           console.log('Network NOT connected');
       }
     }
