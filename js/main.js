@@ -69,7 +69,7 @@ $(document).ready(function(){
 
     request.fail(function( jqXHR, textStatus ) {
       console.log( "Request failed: " + textStatus );
-      document.getElementById("debug_msg").innerHTML = "Request failed: " + textStatus;
+      document.getElementById("debug_msg").innerHTML = textStatus + " Incorrect password, please try again";
     });
 
   });
