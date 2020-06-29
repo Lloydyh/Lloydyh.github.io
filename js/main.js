@@ -317,7 +317,7 @@ $(document).ready(function(){
       let value = event.target.value;
       value = Decodeuint8arr(value);
 
-      let res = str.substring(0, 1);
+      let res = value.substring(0, 1);
 
       if (res == SSID_STORED){
           console.log('> ' + value);
