@@ -78,7 +78,6 @@ $(document).ready(function(){
   $("#goto_location_button").click(function(){
     console.log("Enter Location");
     $("#enter_location").hide();
-    $("#turn_on_bluetooth").show();
   });
 
   $("#search_location_button").click(function(){
@@ -183,7 +182,7 @@ $(document).ready(function(){
 
     $("#enter_location").hide();
     $("#location_list").hide();
-    $("#connect").show();
+    $("#turn_on_bluetooth").show();
   });
 
   $("#connect_button").click(function(){
