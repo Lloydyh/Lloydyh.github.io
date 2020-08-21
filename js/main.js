@@ -78,6 +78,7 @@ $(document).ready(function(){
   $("#goto_location_button").click(function(){
     console.log("Enter Location");
     $("#enter_location").hide();
+    $("#connect_button").show();
   });
 
   $("#search_location_button").click(function(){
