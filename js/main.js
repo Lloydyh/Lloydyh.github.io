@@ -78,6 +78,7 @@ $(document).ready(function(){
   $("#goto_location_button").click(function(){
     console.log("Enter Location");
     $("#enter_location").hide();
+    $("#turn_on_bluetooth").hide();
     $("#connect").show();
   });
 
