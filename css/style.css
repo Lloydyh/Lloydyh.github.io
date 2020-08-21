@@ -61,7 +61,7 @@ html,
 #error-msg, #debug_msg {
   width: 75%;
   margin: auto;
-  font-size: 12px;
+  font-size: 14px;
   color: #DC143C;
 }
 

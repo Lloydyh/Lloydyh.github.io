@@ -23,35 +23,27 @@
         <img src="images/bb_logo.png" height="100"/>
       </div>
       <div>
-        <p>Bramwell Brown - version 0.6.5</p>
+        <p>Bramwell Brown - version 0.6.6</p>
       </div>
       <div id="firmware_version">
       </div>
     </div>
+    <div id="debug_msg">
+    </div>
+    <div id="error-msg">
+      <p></p>
+    </div>
     <div id="get_started">
       <h3>Bramwell Brown Mechanimated Weather Clock Setup</h3>
       <p>Before you are able to enjoy your new weather clock you will need to connect it to the internet.</p>
-      <p>Follow this simple step by step guide. If you experience any difficulties please visit the <a href="https://www.bramwellbrown.com/">bramwellbrown.com</a></p>
+      <p>Follow this simple step by step guide. If you experience any difficulties please visit <a href="https://www.bramwellbrown.com/">bramwellbrown.com</a></p>
       <input class="button" type="button" id="get_started_button" value="Get Started"/>
     </div>
     <div id="login">
-      <h3>Please enter your password</h3>
-      <label for="password">Password:</label><br>
+      <h3>Please enter your Bramwell Brown Clock Serial Number</h3>
+      <label for="password">Serial Number:</label><br>
       <input type="text" id="user_password" name="user_password"><br>
       <input class="button" type="button" id="enter_password_button" value="Submit"/>
-    </div>
-    <div id="turn_on_bluetooth">
-      <h3>Turn Bluetooth on</h3>
-      <p>In order for us to configure your clock we will need to send some information to it via Bluetooth.</p>
-      <p>To turn Bluetooth on run through the following steps</p>
-      <ol>
-        <li>Turn your clock on</li>
-        <li>Wait till the light on the front of your clock is either red or green</li>
-        <li>Now press and hold the demo button on your clock</li>
-        <li>Bluetooth mode is enabled once the light starts flashing</li>
-        <li>Go to next step on you app</li>
-      </ol>
-      <input class="button" type="button" id="goto_location_button" value="Next Step"/>
     </div>
     <div id="enter_location">
       <h3>Enter your location</h3>
@@ -65,6 +57,19 @@
         <ul id="list_of_locations">
         </ul>
       </div>
+    </div>
+    <div id="turn_on_bluetooth">
+      <h3>Turn Bluetooth on</h3>
+      <p>In order for us to configure your clock we will need to send some information to it via Bluetooth.</p>
+      <p>Please make sure Bluetooth is enabled on your mobile device and then run through the following steps to turn the clocks Bluetooth mode on</p>
+      <ol>
+        <li>Turn your clock on</li>
+        <li>Wait till the light on the front of your clock is either red or green</li>
+        <li>Now press and hold the demo button on your clock</li>
+        <li>Bluetooth mode is enabled once the green light starts flashing</li>
+        <li>Go to next step on you app</li>
+      </ol>
+      <input class="button" type="button" id="goto_location_button" value="Next Step"/>
     </div>
     <div id="connect">
       <h3></h3>
@@ -83,11 +88,6 @@
       </form>
       <input class="button" type="button" id="send_button" value="Submit Details" />
       <br/><hr/>
-    </div>
-    <div id="debug_msg">
-    </div>
-    <div id="error-msg">
-      <p></p>
     </div>
   </div>
   <script src="js/main.js"></script>

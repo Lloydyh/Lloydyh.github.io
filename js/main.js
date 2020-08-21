@@ -57,15 +57,15 @@ $(document).ready(function(){
       url: login_url,
       method: "POST",
       crossDomain: true,
-      data: {firstName : "Bramwell", password : pwd},
+      data: {serialNumber : pwd},
       dataType: "json"
     });
 
     request.done(function( msg ) {
       console.log( msg );
-      auth_token = msg.authToken;
+      auth_token = msg.user.authToken;
       $("#login").hide();
-      $("#turn_on_bluetooth").show();
+      $("#enter_location").show();
     });
 
     request.fail(function( jqXHR, textStatus ) {
@@ -77,8 +77,8 @@ $(document).ready(function(){
 
   $("#goto_location_button").click(function(){
     console.log("Enter Location");
-    $("#turn_on_bluetooth").hide();
-    $("#enter_location").show();
+    $("#enter_location").hide();
+    $("#turn_on_bluetooth").show();
   });
 
   $("#search_location_button").click(function(){
@@ -99,16 +99,56 @@ $(document).ready(function(){
     request.done(function( res ) {
       console.log( res.Success );
 
+      loc_list = [];
+
       $.each(res.Success, function(key,value) {
-        let city = value.city;
-        let country = value.country;
-        let state = value.state;
-        loc = city + ", " + country + ", " + state;
-        console.log(city + ", " + country + ", " + state);
+        let city = value.city ? value.city : " ";
+        let country = value.country ? value.country : " ";
+        let state = value.state ? value.state : " ";
+        let lat = value.latitude;
+        let long = value.longitude;
+
+        obj = {
+          city: city,
+          state: state,
+          country: country,
+          latitude: lat,
+          longitude: long
+        }
+
+        loc_list.push(obj)
+
+        //loc = city + ", " + state + ", " + country;
+        //console.log(city + ", " + state + ", " + country);
+
         //let val = value.latitude.toString() + ',' + value.longitude.toString();
-        location_obj = res.Success;
-        $("#list_of_locations").append("<li value='" + key + "'><a href='javascript:void(0);' class='location_results'>" + loc +"</a></li>");
+        //location_obj = res.Success;
+        //$("#list_of_locations").append("<li value='" + key + "'><a href='javascript:void(0);' class='location_results'>" + loc +"</a></li>");
       });
+
+      // remove duplicates
+      var result = [];
+
+      $.each(loc_list, function (i, e) {
+        var matchingItems = $.grep(result, function (item) {
+          return item.city === e.city && item.state === e.state && item.country === e.country;
+        });
+        if (matchingItems.length === 0){
+          result.push(e);
+        }
+      });
+
+      for (x in result){
+        let city = result[x].city;
+        let country = result[x].country;
+        let state = result[x].state;
+
+        loc = city + ", " + state + ", " + country;
+        $("#list_of_locations").append("<li value='" + x + "'><a href='javascript:void(0);' class='location_results'>" + loc +"</a></li>");
+      }
+
+      location_obj = result;
+      console.log(result)
 
       $("#location_list").show();
 
@@ -208,7 +248,7 @@ $(document).ready(function(){
       console.log('Connected');
       connected.style.display = 'block';
       connect_button.style.display = 'none';
-      disconnect_button.style.display = 'initial';
+      //disconnect_button.style.display = 'initial';
     })
     .catch(
       error => {
@@ -259,7 +299,7 @@ $(document).ready(function(){
     .catch(
       error => {
         console.log('There was an error sending details, please try again ' + error);
-        document.getElementById("error-msg").innerHTML = "There was an error sending details, please try again.";
+        document.getElementById("error-msg").innerHTML = "There was an error sending your details to the clock, please try again.";
       }
     );
   });
@@ -305,7 +345,7 @@ $(document).ready(function(){
     .catch(
       error => {
         console.log('There was an error sending details, please try again ' + error);
-        document.getElementById("error-msg").innerHTML = "There was an error sending details, please try again";
+        document.getElementById("error-msg").innerHTML = "There was an error sending your details to the clock, please try again";
       }
     );
   }
@@ -355,7 +395,7 @@ $(document).ready(function(){
       if (value == NETWORK_NOT_CONNECTED){
           network_success = false;
           document.getElementById("error-msg").innerHTML = "";
-          document.getElementById("debug_msg").innerHTML = "Error connecting Clock please check you wifi details and try again";
+          document.getElementById("debug_msg").innerHTML = "There was an error connecting your clock to the internet please check you wifi details and try again";
           console.log('Network NOT connected');
       }
     }
@@ -375,7 +415,7 @@ $(document).ready(function(){
       if (value == NETWORK_NOT_CONNECTED){
           network_success = false;
           document.getElementById("error-msg").innerHTML = "";
-          document.getElementById("debug_msg").innerHTML = "Error connecting Clock please check you wifi details and try again";
+          document.getElementById("debug_msg").innerHTML = "There was an error connecting your clock to the internet please check you wifi details and try again";
           console.log('Network NOT connected');
       }
     }
