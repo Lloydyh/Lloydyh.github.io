@@ -247,6 +247,7 @@ $(document).ready(function(){
     .then(_ => {
       //document.getElementById("debug_msg").innerHTML = msg;
       console.log('Connected');
+      document.getElementById("connected_msg").innerHTML = "You are now connected to your Bramwell Brown Clock";
       connected.style.display = 'block';
       connect_button.style.display = 'none';
       //disconnect_button.style.display = 'initial';
