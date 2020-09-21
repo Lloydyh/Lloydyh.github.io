@@ -312,7 +312,7 @@ $(document).ready(function(){
     let msg;
 
     if (num == SSID_SENT){
-        SSID_SENT + "|" + ssid;
+        data = SSID_SENT + "|" + ssid;
         msg = "SSID successfully sent: ", data;
     }
 
